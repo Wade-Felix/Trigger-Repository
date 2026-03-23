@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pip install:*)",
+      "Bash(find /c/Users/1/Desktop/hx/lingxing -name \"*.pyc\" -delete)",
+      "Bash(python:*)",
+      "Bash(ls /c/Users/1/Desktop/hx/lingxing/*.xlsx)",
+      "Bash(find /c/Users/1/Desktop/hx/lingxing -type f -not -path */__pycache__/* -not -path */.pytest_cache/*)",
+      "Bash(grep -E \"\\\\.\\(md|txt|json|yaml|yml\\)$\")",
+      "Bash(C:/Python314/python.exe main.py)"
+    ]
+  }
+}
