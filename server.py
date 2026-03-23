@@ -112,6 +112,10 @@ async def _handle_file(message: dict, chat_id: str) -> None:
     file_name = content.get("file_name", "")
     message_id = message.get("message_id", "")
 
+    _EXCLUDE_KEYWORDS = ("改价", "未匹配", "预览")
+    if any(ex in file_name for ex in _EXCLUDE_KEYWORDS):
+        return  # 机器人自身输出文件，忽略
+
     matched_key = next((k for k in _TEMPLATE_MAP if k in file_name), None)
     if not matched_key:
         return  # 文件名无关，忽略
