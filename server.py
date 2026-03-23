@@ -157,6 +157,9 @@ async def _run_pipeline(chat_id: str) -> None:
 @app.post("/webhook")
 async def webhook(request: Request):
     body = await request.json()
+    logger.info("收到事件：type=%s event_type=%s msg_type=%s",
+                body.get("type"), body.get("header", {}).get("event_type"),
+                body.get("event", {}).get("message", {}).get("message_type"))
 
     # 飞书 URL 验证握手
     if body.get("type") == "url_verification":
