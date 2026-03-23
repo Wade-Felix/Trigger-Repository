@@ -33,8 +33,8 @@ logger = logging.getLogger(__name__)
 # 多维表格配置（非密钥，固定指向目标表格）
 # ---------------------------------------------------------------------------
 
-_BITABLE_APP_TOKEN = "VGZ4bG9mPaHhEKsHITlchhYxnPd"
-_TABLE_ID = "tblLo9cck9tiJ23Z"
+_BITABLE_APP_TOKEN = os.environ.get("FEISHU_BITABLE_APP_TOKEN", "").strip()
+_TABLE_ID = os.environ.get("FEISHU_TABLE_ID", "").strip()
 _FEISHU_BASE_URL = "https://open.feishu.cn/open-apis"
 
 # 字段名（与飞书多维表格中的列名完全一致）
@@ -233,6 +233,10 @@ async def read_feishu_products() -> list[FeishuProductRecord]:
             "环境变量 FEISHU_APP_SECRET 未设置或为空，"
             "请在 .env 文件或系统环境变量中配置后重试。"
         )
+    if not _BITABLE_APP_TOKEN:
+        raise EnvironmentError("环境变量 FEISHU_BITABLE_APP_TOKEN 未设置或为空。")
+    if not _TABLE_ID:
+        raise EnvironmentError("环境变量 FEISHU_TABLE_ID 未设置或为空。")
 
     async with aiohttp.ClientSession() as session:
         token = await _get_tenant_access_token(session, app_id, app_secret)
